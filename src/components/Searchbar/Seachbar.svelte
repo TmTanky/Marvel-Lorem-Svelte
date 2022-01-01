@@ -1,14 +1,24 @@
 <script lang="ts">
-    let searchInput = ""
+	import type { DataWrapper } from '../../ts/interfaces/DataWrapper'
 
-    const submitSearch = () => {
-        console.log(searchInput)
-    }
+	let searchInput = ''
+
+	const submitSearch = async () => {
+		const data = await fetch(
+			`https://gateway.marvel.com/v1/public/characters?ts=1&apikey=f8b45118fb91a4431c36fd0e9d9768e6&hash=3b378346d138a923d09319e7ca3f1d83&nameStartsWith=${searchInput}`
+		)
+        const res = await data.json() as DataWrapper
+	}
 </script>
 
 <main>
 	<form on:submit|preventDefault={submitSearch}>
-		<input bind:value={searchInput} type="search" placeholder="Search a character" name="searchbox" />
+		<input
+			bind:value={searchInput}
+			type="search"
+			placeholder="Search a character"
+			name="searchbox"
+		/>
 		<button> Find </button>
 	</form>
 </main>
@@ -43,12 +53,12 @@
 			border: solid 1px rgb(235, 84, 84);
 		}
 
-        @media screen and (min-width: 300px) and (max-width: 500px) {
-            width: 90%;
-        }
-        @media screen and (min-width: 501px) and (max-width: 900px) {
-            width: 70%;
-        }
+		@media screen and (min-width: 300px) and (max-width: 500px) {
+			width: 90%;
+		}
+		@media screen and (min-width: 501px) and (max-width: 900px) {
+			width: 70%;
+		}
 	}
 	button {
 		margin-top: 10px;
