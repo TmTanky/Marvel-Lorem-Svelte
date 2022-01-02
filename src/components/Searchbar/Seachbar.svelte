@@ -157,19 +157,4 @@
 			width: 70%;
 		}
 	}
-	button {
-		margin-top: 10px;
-		width: 100px;
-		border-radius: 5px;
-		border: 1px solid #ccc;
-		padding: 10px;
-		background-color: rgb(235, 84, 84);
-		color: #fff;
-		font-weight: 600;
-		text-transform: uppercase;
-		letter-spacing: 1px;
-		cursor: pointer;
-		border: none;
-		outline: none;
-	}
 </style>
