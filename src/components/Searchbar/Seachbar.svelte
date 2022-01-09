@@ -2,8 +2,7 @@
 	import type { Character } from '../../ts/interfaces/Character'
 	import type { DataWrapper } from '../../ts/interfaces/DataWrapper'
 	import { navigate } from 'svelte-routing'
-	import { debounce } from 'lodash'
-	import { onMount, afterUpdate } from 'svelte'
+	import { afterUpdate } from 'svelte'
 
 	let searchInput = ''
 	let results = [] as Character[]
@@ -12,7 +11,6 @@
 		if (!searchInput) {
 			results = []
 		}
-		submitSearch()
 	})
 
 	const submitSearch = async () => {
@@ -30,7 +28,7 @@
 </script>
 
 <main>
-	<form>
+	<form on:keyup={submitSearch}>
 		<input
 			bind:value={searchInput}
 			type="search"
@@ -38,9 +36,9 @@
 			name="searchbox"
 		/>
 		{#if searchInput.length > 0}
-			<div on:click={() => navigate(`/character/101223`)} class="results">
+			<div class="results">
 				{#each results as character}
-					<div class="item">
+					<div on:click={() => navigate(`/character/${character.id}`)} class="item">
 						<p>{character.name}</p>
 					</div>
 				{/each}
