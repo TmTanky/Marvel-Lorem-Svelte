@@ -25,6 +25,8 @@
 	{#if loading}
 		<p>Loading...</p>
 	{:else}
+		<img src={`${character.thumbnail.path}/portrait_xlarge.jpg`} alt="asdasdasd" />
 		<h1>{character.name}</h1>
+		<p>{character.description}</p>
 	{/if}
 </main>
