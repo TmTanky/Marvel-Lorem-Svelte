@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte'
+	import { navigate } from 'svelte-routing'
 	import type { DataWrapper } from 'src/ts/interfaces/DataWrapper'
 	import type { Character } from 'src/ts/interfaces/Character'
 	import CharacterCard from '../../components/Character/CharacterCard.svelte'
@@ -26,6 +27,9 @@
 	{#if loading}
 		<p>Loading...</p>
 	{:else}
+		<div class="back-container">
+			<button on:click={() => navigate('/')}> Back </button>
+		</div>
 		<CharacterCard
 			description={character.description}
 			imageUrl={character.thumbnail.path}
@@ -33,3 +37,27 @@
 		/>
 	{/if}
 </main>
+
+<style lang="scss">
+	main {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		height: 100vh;
+
+		.back-container {
+			button {
+				border: none;
+				outline: none;
+				background-color: black;
+				max-width: fit-content;
+				height: 40px;
+				padding: 0 40px;
+				font-weight: 700;
+				color: white;
+				cursor: pointer;
+			}
+		}
+	}
+</style>
