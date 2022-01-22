@@ -1,9 +1,8 @@
 <script lang="ts">
 	import type { Character } from '../../ts/interfaces/Character'
 	import type { DataWrapper } from '../../ts/interfaces/DataWrapper'
-	import { navigate } from 'svelte-routing'
-	import { debounce } from 'lodash'
-	import { onMount, afterUpdate } from 'svelte'
+	import CharacterItem from '../Character/CharacterItem.svelte'
+	import { afterUpdate } from 'svelte'
 
 	let searchInput = ''
 	let results = [] as Character[]
@@ -12,7 +11,6 @@
 		if (!searchInput) {
 			results = []
 		}
-		submitSearch()
 	})
 
 	const submitSearch = async () => {
@@ -30,7 +28,7 @@
 </script>
 
 <main>
-	<form>
+	<form on:keyup={submitSearch}>
 		<input
 			bind:value={searchInput}
 			type="search"
@@ -38,11 +36,13 @@
 			name="searchbox"
 		/>
 		{#if searchInput.length > 0}
-			<div on:click={() => navigate(`/character/101223`)} class="results">
+			<div class="results">
 				{#each results as character}
-					<div class="item">
-						<p>{character.name}</p>
-					</div>
+					<CharacterItem
+						id={character.id}
+						imageUrl={character.thumbnail.path}
+						name={character.name}
+					/>
 				{/each}
 			</div>
 		{/if}
@@ -108,24 +108,6 @@
 			::-webkit-scrollbar-corner {
 				background: transparent;
 			}
-
-			.item {
-				/* height: 40px; */
-				background-color: white;
-				display: flex;
-				align-items: center;
-				padding: 0.5rem;
-				cursor: pointer;
-
-				p {
-					font-size: 13px;
-					font-weight: 700;
-				}
-				&:hover {
-					background-color: #e9e9e9;
-				}
-			}
-
 			@media screen and (min-width: 300px) and (max-width: 500px) {
 				width: 90%;
 			}
