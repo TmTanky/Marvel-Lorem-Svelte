@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { Character } from '../../ts/interfaces/Character'
 	import type { DataWrapper } from '../../ts/interfaces/DataWrapper'
-	import { navigate } from 'svelte-routing'
+	import CharacterItem from '../Character/CharacterItem.svelte'
 	import { afterUpdate } from 'svelte'
 
 	let searchInput = ''
@@ -38,9 +38,11 @@
 		{#if searchInput.length > 0}
 			<div class="results">
 				{#each results as character}
-					<div on:click={() => navigate(`/character/${character.id}`)} class="item">
-						<p>{character.name}</p>
-					</div>
+					<CharacterItem
+						id={character.id}
+						imageUrl={character.thumbnail.path}
+						name={character.name}
+					/>
 				{/each}
 			</div>
 		{/if}
@@ -106,24 +108,6 @@
 			::-webkit-scrollbar-corner {
 				background: transparent;
 			}
-
-			.item {
-				/* height: 40px; */
-				background-color: white;
-				display: flex;
-				align-items: center;
-				padding: 0.5rem;
-				cursor: pointer;
-
-				p {
-					font-size: 13px;
-					font-weight: 700;
-				}
-				&:hover {
-					background-color: #e9e9e9;
-				}
-			}
-
 			@media screen and (min-width: 300px) and (max-width: 500px) {
 				width: 90%;
 			}

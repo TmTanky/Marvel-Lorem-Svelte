@@ -2,6 +2,7 @@
 	import { onMount } from 'svelte'
 	import type { DataWrapper } from 'src/ts/interfaces/DataWrapper'
 	import type { Character } from 'src/ts/interfaces/Character'
+	import CharacterCard from '../../components/Character/CharacterCard.svelte'
 
 	const path = window.location.pathname
 	const id = path.substring(11, path.length)
@@ -25,8 +26,10 @@
 	{#if loading}
 		<p>Loading...</p>
 	{:else}
-		<img src={`${character.thumbnail.path}/portrait_xlarge.jpg`} alt="asdasdasd" />
-		<h1>{character.name}</h1>
-		<p>{character.description}</p>
+		<CharacterCard
+			description={character.description}
+			imageUrl={character.thumbnail.path}
+			name={character.name}
+		/>
 	{/if}
 </main>
